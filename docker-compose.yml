@@ -1,0 +1,14 @@
+version: "3"
+services:
+  v2ray:
+    image: anonnobody/v2ray:latest
+    container_name: v2ray_bridge
+    restart: always
+    command: [ "v2ray", "-config=/etc/v2ray/config.json" ]
+    ports:
+      - 127.0.0.1:${HTTP_PORT:-1011}:1011
+      - ${SHADOWSOCKS_PORT:-1012}:1012
+      - ${VMESS_PORT:-1013}:1013
+    volumes:
+      - ./config/:/etc/v2ray/
+      - ./logs:/var/log/v2ray/
